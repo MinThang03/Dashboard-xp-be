@@ -1,0 +1,32 @@
+﻿[
+    {
+        "Module":  "Ho tich",
+        "Flow":  "Add/Edit/Delete",
+        "Status":  "PASS",
+        "Detail":  "id=34"
+    },
+    {
+        "Module":  "Van ban",
+        "Flow":  "Add/Edit/Delete",
+        "Status":  "PASS",
+        "Detail":  "MaVanBan=19"
+    },
+    {
+        "Module":  "Chung thuc",
+        "Flow":  "Add/Edit/Delete",
+        "Status":  "PASS",
+        "Detail":  "MaChungThuc=13"
+    },
+    {
+        "Module":  "Ho khau",
+        "Flow":  "Add/Edit/Delete (+ThanhVien add/delete)",
+        "Status":  "PASS",
+        "Detail":  "MaHoKhau=HKSMOKE260324163436; MaThanhVien=15"
+    },
+    {
+        "Module":  "Ho so TTHC",
+        "Flow":  "Add/Edit/Delete",
+        "Status":  "PASS",
+        "Detail":  "MaHoSo=HSSMOKE260324163436; MaLoaiThuTuc=1"
+    }
+]

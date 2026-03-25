@@ -1,0 +1,137 @@
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class AddYTeGiaoDucFormColumns1738601000000 implements MigrationInterface {
+  name = 'AddYTeGiaoDucFormColumns1738601000000';
+
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+      ALTER TABLE "dashboard_xp"."DichBenh"
+      ADD COLUMN IF NOT EXISTS "MaCa" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "LoaiBenh" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "MaDonViBenh" VARCHAR(30),
+      ADD COLUMN IF NOT EXISTS "MaBenhNhan" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "TenBenhNhan" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "GioiTinh" VARCHAR(10),
+      ADD COLUMN IF NOT EXISTS "NamSinh" INT,
+      ADD COLUMN IF NOT EXISTS "DiaChi" VARCHAR(255),
+      ADD COLUMN IF NOT EXISTS "SoDienThoai" VARCHAR(20),
+      ADD COLUMN IF NOT EXISTS "NgayKhoiPhat" DATE,
+      ADD COLUMN IF NOT EXISTS "NgayPhatHien" DATE,
+      ADD COLUMN IF NOT EXISTS "NgayBaoCao" DATE,
+      ADD COLUMN IF NOT EXISTS "TrieuChung" TEXT,
+      ADD COLUMN IF NOT EXISTS "TrangThaiDieuTri" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "NoiDieuTri" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "NguoiTiepXuc" INT,
+      ADD COLUMN IF NOT EXISTS "KhuVucPhatHien" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "ToaDo" VARCHAR(100),
+      ADD COLUMN IF NOT EXISTS "BienPhapXuLy" TEXT,
+      ADD COLUMN IF NOT EXISTS "NguoiBaoCao" VARCHAR(150)
+    `);
+
+    await queryRunner.query(`
+      ALTER TABLE "dashboard_xp"."CoSoGiaoDuc"
+      ADD COLUMN IF NOT EXISTS "MaTruong" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "TenTruong" VARCHAR(200),
+      ADD COLUMN IF NOT EXISTS "LoaiTruong" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "DienThoai" VARCHAR(20),
+      ADD COLUMN IF NOT EXISTS "Email" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "HieuTruong" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "NamThanhLap" INT,
+      ADD COLUMN IF NOT EXISTS "DienTich" DECIMAL(12,2),
+      ADD COLUMN IF NOT EXISTS "SoPhongHoc" INT,
+      ADD COLUMN IF NOT EXISTS "SoPhongChucNang" INT,
+      ADD COLUMN IF NOT EXISTS "TrangThietBi" VARCHAR(100),
+      ADD COLUMN IF NOT EXISTS "TinhTrangCoSo" VARCHAR(100),
+      ADD COLUMN IF NOT EXISTS "DatChuan" BOOLEAN,
+      ADD COLUMN IF NOT EXISTS "XepLoai" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "NgayCapNhat" DATE
+    `);
+
+    await queryRunner.query(`
+      ALTER TABLE "dashboard_xp"."TiemChung"
+      ADD COLUMN IF NOT EXISTS "MaPhieu" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "MaDoiTuong" INT,
+      ADD COLUMN IF NOT EXISTS "TenDoiTuong" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "NgaySinh" DATE,
+      ADD COLUMN IF NOT EXISTS "GioiTinh" VARCHAR(10),
+      ADD COLUMN IF NOT EXISTS "TenChaMeBaoHo" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "SoDienThoai" VARCHAR(20),
+      ADD COLUMN IF NOT EXISTS "DiaChi" VARCHAR(255),
+      ADD COLUMN IF NOT EXISTS "LoaiDoiTuong" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "TenVacXin" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "LoaiVacXin" VARCHAR(100),
+      ADD COLUMN IF NOT EXISTS "MuiThu" INT DEFAULT 1,
+      ADD COLUMN IF NOT EXISTS "TongSoMui" INT DEFAULT 1,
+      ADD COLUMN IF NOT EXISTS "NgayTiem" TIMESTAMP,
+      ADD COLUMN IF NOT EXISTS "ViTriTiem" VARCHAR(100),
+      ADD COLUMN IF NOT EXISTS "SoLo" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "NguoiTiem" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "MaTrangThai" VARCHAR(30),
+      ADD COLUMN IF NOT EXISTS "PhanUngSauTiem" TEXT,
+      ADD COLUMN IF NOT EXISTS "NgayHenTiemKe" DATE
+    `);
+
+    await queryRunner.query(`
+      ALTER TABLE "dashboard_xp"."PhieuKham"
+      ADD COLUMN IF NOT EXISTS "MaPhieu" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "TenBenhNhan" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "NgaySinh" DATE,
+      ADD COLUMN IF NOT EXISTS "GioiTinh" VARCHAR(10),
+      ADD COLUMN IF NOT EXISTS "CCCD" VARCHAR(20),
+      ADD COLUMN IF NOT EXISTS "SoDienThoai" VARCHAR(20),
+      ADD COLUMN IF NOT EXISTS "DiaChi" VARCHAR(255),
+      ADD COLUMN IF NOT EXISTS "MaBHYT" VARCHAR(30),
+      ADD COLUMN IF NOT EXISTS "NhietDo" DECIMAL(4,1),
+      ADD COLUMN IF NOT EXISTS "HuyetAp" VARCHAR(20),
+      ADD COLUMN IF NOT EXISTS "NhipTim" INT,
+      ADD COLUMN IF NOT EXISTS "CanNang" DECIMAL(5,1),
+      ADD COLUMN IF NOT EXISTS "ChieuCao" DECIMAL(5,1),
+      ADD COLUMN IF NOT EXISTS "PhuongPhapDieuTri" TEXT,
+      ADD COLUMN IF NOT EXISTS "BacSiKham" VARCHAR(150),
+      ADD COLUMN IF NOT EXISTS "MaTrangThai" VARCHAR(30),
+      ADD COLUMN IF NOT EXISTS "NgayTaiKham" DATE,
+      ADD COLUMN IF NOT EXISTS "PhiKham" DECIMAL(18,0),
+      ADD COLUMN IF NOT EXISTS "BHYTChiTra" DECIMAL(18,0)
+    `);
+
+    await queryRunner.query(`
+      ALTER TABLE "dashboard_xp"."LopHoc"
+      ADD COLUMN IF NOT EXISTS "MaLopCode" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "MaTruong" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "TenTruong" VARCHAR(200),
+      ADD COLUMN IF NOT EXISTS "LoaiTruong" VARCHAR(50),
+      ADD COLUMN IF NOT EXISTS "NamHoc" VARCHAR(20),
+      ADD COLUMN IF NOT EXISTS "HocKy" INT,
+      ADD COLUMN IF NOT EXISTS "SiSoDauNam" INT,
+      ADD COLUMN IF NOT EXISTS "SiSoHienTai" INT,
+      ADD COLUMN IF NOT EXISTS "Nam" INT,
+      ADD COLUMN IF NOT EXISTS "Nu" INT,
+      ADD COLUMN IF NOT EXISTS "CoMatHomNay" INT,
+      ADD COLUMN IF NOT EXISTS "VangCoPhep" INT,
+      ADD COLUMN IF NOT EXISTS "VangKhongPhep" INT,
+      ADD COLUMN IF NOT EXISTS "TyLeDiHoc" DECIMAL(5,2),
+      ADD COLUMN IF NOT EXISTS "NgayCapNhat" DATE
+    `);
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+      ALTER TABLE "dashboard_xp"."LopHoc"
+      DROP COLUMN IF EXISTS "NgayCapNhat",
+      DROP COLUMN IF EXISTS "TyLeDiHoc",
+      DROP COLUMN IF EXISTS "VangKhongPhep",
+      DROP COLUMN IF EXISTS "VangCoPhep",
+      DROP COLUMN IF EXISTS "CoMatHomNay",
+      DROP COLUMN IF EXISTS "Nu",
+      DROP COLUMN IF EXISTS "Nam",
+      DROP COLUMN IF EXISTS "SiSoHienTai",
+      DROP COLUMN IF EXISTS "SiSoDauNam",
+      DROP COLUMN IF EXISTS "HocKy",
+      DROP COLUMN IF EXISTS "NamHoc",
+      DROP COLUMN IF EXISTS "LoaiTruong",
+      DROP COLUMN IF EXISTS "TenTruong",
+      DROP COLUMN IF EXISTS "MaTruong",
+      DROP COLUMN IF EXISTS "MaLopCode"
+    `);
+  }
+}
