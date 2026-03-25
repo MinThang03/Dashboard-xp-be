@@ -38,23 +38,40 @@ export class PhieuKhamService {
       return value as T | null | undefined;
     };
 
+    const aliasChanDoan = (data as any).ChuanDoan;
+    const chanDoanValue = data.ChanDoan !== undefined ? data.ChanDoan : aliasChanDoan;
+
     return {
-      ...data,
+      MaCongDan: data.MaCongDan,
       HoTenBenhNhan: normalize(data.HoTenBenhNhan, 150, 'Họ tên bệnh nhân'),
+      NgayKham: normalizeDate<Date>(data.NgayKham),
+      TrieuChung: data.TrieuChung,
+      ChanDoan: chanDoanValue,
+      DonThuoc: data.DonThuoc,
+      ChiPhi: data.ChiPhi,
+      MaTram: data.MaTram,
+      BacSiXuLy: data.BacSiXuLy,
       TrangThai: normalize(data.TrangThai, 50, 'Trạng thái'),
+      GhiChu: data.GhiChu,
       MaPhieu: normalize(data.MaPhieu, 50, 'Mã phiếu'),
       TenBenhNhan: normalize(data.TenBenhNhan, 150, 'Tên bệnh nhân'),
+      NgaySinh: normalizeDate<Date>(data.NgaySinh),
       GioiTinh: normalize(data.GioiTinh, 10, 'Giới tính'),
       CCCD: normalize(data.CCCD, 20, 'CCCD'),
       SoDienThoai: normalize(data.SoDienThoai, 20, 'Số điện thoại'),
       DiaChi: normalize(data.DiaChi, 255, 'Địa chỉ'),
       MaBHYT: normalize(data.MaBHYT, 30, 'Mã BHYT'),
+      NhietDo: data.NhietDo,
       HuyetAp: normalize(data.HuyetAp, 20, 'Huyết áp'),
+      NhipTim: data.NhipTim,
+      CanNang: data.CanNang,
+      ChieuCao: data.ChieuCao,
+      PhuongPhapDieuTri: data.PhuongPhapDieuTri,
       BacSiKham: normalize(data.BacSiKham, 150, 'Bác sĩ khám'),
       MaTrangThai: normalize(data.MaTrangThai, 30, 'Mã trạng thái'),
-      NgayKham: normalizeDate<Date>(data.NgayKham),
-      NgaySinh: normalizeDate<Date>(data.NgaySinh),
       NgayTaiKham: normalizeDate<Date>(data.NgayTaiKham),
+      PhiKham: data.PhiKham,
+      BHYTChiTra: data.BHYTChiTra,
     };
   }
 

@@ -26,6 +26,14 @@ import { LangNghe } from './src/lang-nghe/lang-nghe.entity';
 import { LeHoi } from './src/le-hoi/le-hoi.entity';
 import { ViPham } from './src/vi-pham/vi-pham.entity';
 import { DiemNongAnNinh } from './src/diem-nong-an-ninh/diem-nong-an-ninh.entity';
+import { TamTruTamVang } from './src/tam-tru-tam-vang/tam-tru-tam-vang.entity';
+import { HoKinhDoanh } from './src/ho-kinh-doanh/ho-kinh-doanh.entity';
+import { ChoDiemKinhDoanh } from './src/cho-diem-kinh-doanh/cho-diem-kinh-doanh.entity';
+import { ThuPhi } from './src/thu-phi/thu-phi.entity';
+import { HoTroDoanhNghiep } from './src/ho-tro-doanh-nghiep/ho-tro-doanh-nghiep.entity';
+import { ThongKeKinhTe } from './src/thong-ke-kinh-te/thong-ke-kinh-te.entity';
+import { PhanAnh } from './src/phan-anh/phan-anh.entity';
+import { AnNinhTratTu } from './src/an-ninh-trat-tu/an-ninh-trat-tu.entity';
 
 // Load environment variables
 config();
@@ -64,6 +72,14 @@ export default new DataSource({
     LeHoi,
     ViPham,
     DiemNongAnNinh,
+    TamTruTamVang,
+    HoKinhDoanh,
+    ChoDiemKinhDoanh,
+    ThuPhi,
+    HoTroDoanhNghiep,
+    ThongKeKinhTe,
+    PhanAnh,
+    AnNinhTratTu,
   ],
   migrations: ['./migrations/*.ts'],
   ssl: {

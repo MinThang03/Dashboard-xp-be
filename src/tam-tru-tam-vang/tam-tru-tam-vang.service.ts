@@ -10,6 +10,22 @@ export class TamTruTamVangService {
     private tamTruTamVangRepository: Repository<TamTruTamVang>,
   ) {}
 
+  private normalizePayload(data: Partial<TamTruTamVang>): Partial<TamTruTamVang> {
+    const input = data as any;
+    return {
+      ...data,
+      HoTenNguoiKhaiBao: data.HoTenNguoiKhaiBao ?? input.HoTen,
+      HoTen: input.HoTen ?? data.HoTenNguoiKhaiBao,
+      TuNgay: data.TuNgay ?? input.NgayDangKy,
+      DenNgay: data.DenNgay ?? input.NgayHetHan,
+      TinhTrangHoSo: data.TinhTrangHoSo ?? input.TrangThai,
+      NgayKhaiBao: data.NgayKhaiBao ?? input.NgayDangKy,
+      NgayDangKy: input.NgayDangKy ?? data.TuNgay,
+      NgayHetHan: input.NgayHetHan ?? data.DenNgay,
+      TrangThai: input.TrangThai ?? data.TinhTrangHoSo,
+    };
+  }
+
   async findAll(page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
     const [data, total] = await this.tamTruTamVangRepository.findAndCount({
@@ -36,12 +52,12 @@ export class TamTruTamVangService {
   }
 
   async create(data: Partial<TamTruTamVang>) {
-    const hoSo = this.tamTruTamVangRepository.create(data);
+    const hoSo = this.tamTruTamVangRepository.create(this.normalizePayload(data));
     return this.tamTruTamVangRepository.save(hoSo);
   }
 
   async update(id: number, data: Partial<TamTruTamVang>) {
-    await this.tamTruTamVangRepository.update(id, data);
+    await this.tamTruTamVangRepository.update(id, this.normalizePayload(data));
     return this.findOne(id);
   }
 

@@ -10,6 +10,19 @@ export class ViPhamService {
     private repository: Repository<ViPham>,
   ) {}
 
+  private normalizePayload(data: Partial<ViPham>): Partial<ViPham> {
+    const input = data as any;
+    return {
+      ...data,
+      TenViPham: data.TenViPham ?? input.NoiDungViPham,
+      NgayViPham: data.NgayViPham ?? input.NgayLap,
+      NguoiViPham: data.NguoiViPham ?? input.DoiTuong,
+      DiaDiem: data.DiaDiem ?? input.DiaChiViPham,
+      NgayLap: input.NgayLap ?? data.NgayViPham,
+      DoiTuong: input.DoiTuong ?? data.NguoiViPham,
+    };
+  }
+
   async findAll(page: number = 1, limit: number = 10) {
     const [items, total] = await this.repository.findAndCount({
       skip: (page - 1) * limit,
@@ -58,13 +71,13 @@ export class ViPhamService {
   }
 
   async create(data: Partial<ViPham>) {
-    const item = this.repository.create(data);
+    const item = this.repository.create(this.normalizePayload(data));
     await this.repository.save(item);
     return { success: true, data: item, message: 'Tạo mới thành công' };
   }
 
   async update(id: number, data: Partial<ViPham>) {
-    await this.repository.update({ MaViPham: id } as any, data);
+    await this.repository.update({ MaViPham: id } as any, this.normalizePayload(data));
     const updated = await this.repository.findOne({ where: { MaViPham: id } as any });
     return { success: true, data: updated, message: 'Cập nhật thành công' };
   }

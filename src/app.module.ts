@@ -24,6 +24,13 @@ import { CoSoGiaoDucModule } from './co-so-giao-duc/co-so-giao-duc.module';
 import { TiemChungModule } from './tiem-chung/tiem-chung.module';
 import { PhieuKhamModule } from './phieu-kham/phieu-kham.module';
 import { LopHocModule } from './lop-hoc/lop-hoc.module';
+import { HoKinhDoanhModule } from './ho-kinh-doanh/ho-kinh-doanh.module';
+import { ChoDiemKinhDoanhModule } from './cho-diem-kinh-doanh/cho-diem-kinh-doanh.module';
+import { ThuPhiModule } from './thu-phi/thu-phi.module';
+import { HoTroDoanhNghiepModule } from './ho-tro-doanh-nghiep/ho-tro-doanh-nghiep.module';
+import { ThongKeKinhTeModule } from './thong-ke-kinh-te/thong-ke-kinh-te.module';
+import { PhanAnhModule } from './phan-anh/phan-anh.module';
+import { AnNinhTratTuModule } from './an-ninh-trat-tu/an-ninh-trat-tu.module';
 
 // Module 3: Tài chính
 import { NganSachModule } from './ngan-sach/ngan-sach.module';
@@ -74,6 +81,12 @@ import { DiemNongAnNinhModule } from './diem-nong-an-ninh/diem-nong-an-ninh.modu
     TiemChungModule,
     PhieuKhamModule,
     LopHocModule,
+    // Kinh tế - Thương mại
+    HoKinhDoanhModule,
+    ChoDiemKinhDoanhModule,
+    ThuPhiModule,
+    HoTroDoanhNghiepModule,
+    ThongKeKinhTeModule,
     // Tài chính
     NganSachModule,
     // Địa chính
@@ -89,6 +102,8 @@ import { DiemNongAnNinhModule } from './diem-nong-an-ninh/diem-nong-an-ninh.modu
     // An ninh - Trật tự
     ViPhamModule,
     DiemNongAnNinhModule,
+    PhanAnhModule,
+    AnNinhTratTuModule,
   ],
   controllers: [AppController],
   providers: [AppService],

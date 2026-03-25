@@ -26,6 +26,14 @@ import { LangNghe } from '../lang-nghe/lang-nghe.entity';
 import { LeHoi } from '../le-hoi/le-hoi.entity';
 import { ViPham } from '../vi-pham/vi-pham.entity';
 import { DiemNongAnNinh } from '../diem-nong-an-ninh/diem-nong-an-ninh.entity';
+import { TamTruTamVang } from '../tam-tru-tam-vang/tam-tru-tam-vang.entity';
+import { HoKinhDoanh } from '../ho-kinh-doanh/ho-kinh-doanh.entity';
+import { ChoDiemKinhDoanh } from '../cho-diem-kinh-doanh/cho-diem-kinh-doanh.entity';
+import { ThuPhi } from '../thu-phi/thu-phi.entity';
+import { HoTroDoanhNghiep } from '../ho-tro-doanh-nghiep/ho-tro-doanh-nghiep.entity';
+import { ThongKeKinhTe } from '../thong-ke-kinh-te/thong-ke-kinh-te.entity';
+import { PhanAnh } from '../phan-anh/phan-anh.entity';
+import { AnNinhTratTu } from '../an-ninh-trat-tu/an-ninh-trat-tu.entity';
 
 export const typeOrmConfig = (
   configService: ConfigService,
@@ -63,6 +71,14 @@ export const typeOrmConfig = (
     LeHoi,
     ViPham,
     DiemNongAnNinh,
+    TamTruTamVang,
+    HoKinhDoanh,
+    ChoDiemKinhDoanh,
+    ThuPhi,
+    HoTroDoanhNghiep,
+    ThongKeKinhTe,
+    PhanAnh,
+    AnNinhTratTu,
   ],
   synchronize: false,
   ssl: {

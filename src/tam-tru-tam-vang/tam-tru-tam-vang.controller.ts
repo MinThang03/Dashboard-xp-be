@@ -13,7 +13,7 @@ import {
 // import { UseGuards } from '@nestjs/common';
 import { TamTruTamVangService } from './tam-tru-tam-vang.service';
 
-@Controller('api/tam-tru-tam-vang')
+@Controller('tam-tru-tam-vang')
 // @UseGuards(JwtAuthGuard) // Temporarily disabled
 export class TamTruTamVangController {
   constructor(private readonly tamTruTamVangService: TamTruTamVangService) {}
