@@ -11,16 +11,46 @@ export class PhanAnhService {
   ) {}
 
   private normalizePayload(payload: Partial<PhanAnh>): Partial<PhanAnh> {
-    const allowedStatus = ['Mới', 'Đang xử lý', 'Đã xử lý', 'Đã đóng'];
-    const normalizedStatus = allowedStatus.includes(payload.TrangThai || '')
-      ? payload.TrangThai
+    const statusMap: Record<string, string> = {
+      Moi: 'Mới',
+      'Mới': 'Mới',
+      'Dang xu ly': 'Đang xử lý',
+      'Đang xử lý': 'Đang xử lý',
+      'Da xu ly': 'Đã xử lý',
+      'Đã xử lý': 'Đã xử lý',
+      'Da dong': 'Đã đóng',
+      'Đã đóng': 'Đã đóng',
+      'Tu choi': 'Từ chối',
+      'Từ chối': 'Từ chối',
+    };
+
+    const priorityMap: Record<string, string> = {
+      Thuong: 'Thường',
+      'Thường': 'Thường',
+      'Khan cap': 'Khẩn cấp',
+      'Khẩn cấp': 'Khẩn cấp',
+      Cao: 'Cao',
+    };
+
+    const allowedStatus = ['Mới', 'Đang xử lý', 'Đã xử lý', 'Đã đóng', 'Từ chối'];
+    const allowedPriority = ['Thường', 'Khẩn cấp', 'Cao'];
+
+    const mappedStatus = statusMap[payload.TrangThai || ''] ?? payload.TrangThai;
+    const mappedPriority = priorityMap[payload.MucDoUuTien || ''] ?? payload.MucDoUuTien;
+
+    const normalizedStatus = allowedStatus.includes(mappedStatus || '')
+      ? mappedStatus
       : 'Mới';
+    const normalizedPriority = allowedPriority.includes(mappedPriority || '')
+      ? mappedPriority
+      : 'Thường';
 
     return {
       ...payload,
       MaCongDan: payload.MaCongDan ?? null,
       MaLinhVuc: payload.MaLinhVuc ?? null,
       TrangThai: normalizedStatus,
+      MucDoUuTien: normalizedPriority,
     };
   }
 

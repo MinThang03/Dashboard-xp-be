@@ -31,6 +31,15 @@ import { HoTroDoanhNghiepModule } from './ho-tro-doanh-nghiep/ho-tro-doanh-nghie
 import { ThongKeKinhTeModule } from './thong-ke-kinh-te/thong-ke-kinh-te.module';
 import { PhanAnhModule } from './phan-anh/phan-anh.module';
 import { AnNinhTratTuModule } from './an-ninh-trat-tu/an-ninh-trat-tu.module';
+import { HoSoCapPhepXayDungModule } from './ho-so-cap-phep-xay-dung/ho-so-cap-phep-xay-dung.module';
+import { TheoDoiTratTuXayDungModule } from './theo-doi-trat-tu-xay-dung/theo-doi-trat-tu-xay-dung.module';
+import { HaTangDoThiModule } from './ha-tang-do-thi/ha-tang-do-thi.module';
+import { XayDungTraiPhepModule } from './xay-dung-trai-phep/xay-dung-trai-phep.module';
+import { NhaOCongTrinhModule } from './nha-o-cong-trinh/nha-o-cong-trinh.module';
+import { HoNgheoModule } from './ho-ngheo/ho-ngheo.module';
+import { BaoTroXaHoiModule } from './bao-tro-xa-hoi/bao-tro-xa-hoi.module';
+import { NguoiCoCongModule } from './nguoi-co-cong/nguoi-co-cong.module';
+import { ViecLamModule } from './viec-lam/viec-lam.module';
 
 // Module 3: Tài chính
 import { NganSachModule } from './ngan-sach/ngan-sach.module';
@@ -87,6 +96,17 @@ import { DiemNongAnNinhModule } from './diem-nong-an-ninh/diem-nong-an-ninh.modu
     ThuPhiModule,
     HoTroDoanhNghiepModule,
     ThongKeKinhTeModule,
+    // Xây dựng - Hạ tầng
+    HoSoCapPhepXayDungModule,
+    TheoDoiTratTuXayDungModule,
+    HaTangDoThiModule,
+    XayDungTraiPhepModule,
+    NhaOCongTrinhModule,
+    // Lao động - TBXH
+    HoNgheoModule,
+    BaoTroXaHoiModule,
+    NguoiCoCongModule,
+    ViecLamModule,
     // Tài chính
     NganSachModule,
     // Địa chính

@@ -34,6 +34,15 @@ import { HoTroDoanhNghiep } from './src/ho-tro-doanh-nghiep/ho-tro-doanh-nghiep.
 import { ThongKeKinhTe } from './src/thong-ke-kinh-te/thong-ke-kinh-te.entity';
 import { PhanAnh } from './src/phan-anh/phan-anh.entity';
 import { AnNinhTratTu } from './src/an-ninh-trat-tu/an-ninh-trat-tu.entity';
+import { HoSoCapPhepXayDung } from './src/ho-so-cap-phep-xay-dung/ho-so-cap-phep-xay-dung.entity';
+import { TheoDoiTratTuXayDung } from './src/theo-doi-trat-tu-xay-dung/theo-doi-trat-tu-xay-dung.entity';
+import { HaTangDoThi } from './src/ha-tang-do-thi/ha-tang-do-thi.entity';
+import { XayDungTraiPhep } from './src/xay-dung-trai-phep/xay-dung-trai-phep.entity';
+import { NhaOCongTrinh } from './src/nha-o-cong-trinh/nha-o-cong-trinh.entity';
+import { HoNgheo } from './src/ho-ngheo/ho-ngheo.entity';
+import { BaoTroXaHoi } from './src/bao-tro-xa-hoi/bao-tro-xa-hoi.entity';
+import { NguoiCoCong } from './src/nguoi-co-cong/nguoi-co-cong.entity';
+import { ViecLam } from './src/viec-lam/viec-lam.entity';
 
 // Load environment variables
 config();
@@ -80,6 +89,15 @@ export default new DataSource({
     ThongKeKinhTe,
     PhanAnh,
     AnNinhTratTu,
+    HoSoCapPhepXayDung,
+    TheoDoiTratTuXayDung,
+    HaTangDoThi,
+    XayDungTraiPhep,
+    NhaOCongTrinh,
+    HoNgheo,
+    BaoTroXaHoi,
+    NguoiCoCong,
+    ViecLam,
   ],
   migrations: ['./migrations/*.ts'],
   ssl: {

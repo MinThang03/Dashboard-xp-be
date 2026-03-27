@@ -34,6 +34,15 @@ import { HoTroDoanhNghiep } from '../ho-tro-doanh-nghiep/ho-tro-doanh-nghiep.ent
 import { ThongKeKinhTe } from '../thong-ke-kinh-te/thong-ke-kinh-te.entity';
 import { PhanAnh } from '../phan-anh/phan-anh.entity';
 import { AnNinhTratTu } from '../an-ninh-trat-tu/an-ninh-trat-tu.entity';
+import { HoSoCapPhepXayDung } from '../ho-so-cap-phep-xay-dung/ho-so-cap-phep-xay-dung.entity';
+import { TheoDoiTratTuXayDung } from '../theo-doi-trat-tu-xay-dung/theo-doi-trat-tu-xay-dung.entity';
+import { HaTangDoThi } from '../ha-tang-do-thi/ha-tang-do-thi.entity';
+import { XayDungTraiPhep } from '../xay-dung-trai-phep/xay-dung-trai-phep.entity';
+import { NhaOCongTrinh } from '../nha-o-cong-trinh/nha-o-cong-trinh.entity';
+import { HoNgheo } from '../ho-ngheo/ho-ngheo.entity';
+import { BaoTroXaHoi } from '../bao-tro-xa-hoi/bao-tro-xa-hoi.entity';
+import { NguoiCoCong } from '../nguoi-co-cong/nguoi-co-cong.entity';
+import { ViecLam } from '../viec-lam/viec-lam.entity';
 
 export const typeOrmConfig = (
   configService: ConfigService,
@@ -79,6 +88,15 @@ export const typeOrmConfig = (
     ThongKeKinhTe,
     PhanAnh,
     AnNinhTratTu,
+    HoSoCapPhepXayDung,
+    TheoDoiTratTuXayDung,
+    HaTangDoThi,
+    XayDungTraiPhep,
+    NhaOCongTrinh,
+    HoNgheo,
+    BaoTroXaHoi,
+    NguoiCoCong,
+    ViecLam,
   ],
   synchronize: false,
   ssl: {

@@ -10,12 +10,24 @@ export class ThongKeKinhTeService {
     private readonly repository: Repository<ThongKeKinhTe>,
   ) {}
 
+  private normalizeTextFields(record: ThongKeKinhTe | null) {
+    if (!record) return record;
+    return {
+      ...record,
+      MaBC: record.MaBC ?? '',
+      KyBaoCao: record.KyBaoCao ?? '',
+      LoaiKy: record.LoaiKy ?? '',
+      TrangThai: record.TrangThai ?? '',
+    };
+  }
+
   async findAll(page: number = 1, limit: number = 20) {
-    const [data, total] = await this.repository.findAndCount({
+    const [rows, total] = await this.repository.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
       order: { MaBaoCao: 'DESC' },
     });
+    const data = rows.map((row) => this.normalizeTextFields(row));
     return { success: true, data, pagination: { page, limit, total, totalPages: Math.ceil(total / limit) } };
   }
 
@@ -25,19 +37,19 @@ export class ThongKeKinhTeService {
   }
 
   async findOne(id: number) {
-    const data = await this.repository.findOne({ where: { MaBaoCao: id } as any });
-    return { success: true, data };
+    const row = await this.repository.findOne({ where: { MaBaoCao: id } as any });
+    return { success: true, data: this.normalizeTextFields(row) };
   }
 
   async create(payload: Partial<ThongKeKinhTe>) {
-    const data = await this.repository.save(this.repository.create(payload));
-    return { success: true, data, message: 'Tạo mới thành công' };
+    const row = await this.repository.save(this.repository.create(payload));
+    return { success: true, data: this.normalizeTextFields(row), message: 'Tạo mới thành công' };
   }
 
   async update(id: number, payload: Partial<ThongKeKinhTe>) {
     await this.repository.update({ MaBaoCao: id } as any, payload);
-    const data = await this.repository.findOne({ where: { MaBaoCao: id } as any });
-    return { success: true, data, message: 'Cập nhật thành công' };
+    const row = await this.repository.findOne({ where: { MaBaoCao: id } as any });
+    return { success: true, data: this.normalizeTextFields(row), message: 'Cập nhật thành công' };
   }
 
   async delete(id: number) {

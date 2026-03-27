@@ -10,18 +10,50 @@ export class TamTruTamVangService {
     private tamTruTamVangRepository: Repository<TamTruTamVang>,
   ) {}
 
+  private normalizeDateValue(value: unknown): Date | null | undefined {
+    if (value === undefined) {
+      return undefined;
+    }
+
+    if (value === null || value === '') {
+      return null;
+    }
+
+    if (value instanceof Date) {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+      if (!trimmed) {
+        return null;
+      }
+      return new Date(trimmed);
+    }
+
+    return value as Date;
+  }
+
   private normalizePayload(data: Partial<TamTruTamVang>): Partial<TamTruTamVang> {
     const input = data as any;
+    const normalizedNgaySinh = this.normalizeDateValue(input.NgaySinh ?? data.NgaySinh);
+    const normalizedNgayDangKy = this.normalizeDateValue(input.NgayDangKy ?? data.NgayDangKy);
+    const normalizedNgayHetHan = this.normalizeDateValue(input.NgayHetHan ?? data.NgayHetHan);
+    const normalizedTuNgay = this.normalizeDateValue(data.TuNgay ?? input.NgayDangKy);
+    const normalizedDenNgay = this.normalizeDateValue(data.DenNgay ?? input.NgayHetHan);
+    const normalizedNgayKhaiBao = this.normalizeDateValue(data.NgayKhaiBao ?? input.NgayDangKy);
+
     return {
       ...data,
       HoTenNguoiKhaiBao: data.HoTenNguoiKhaiBao ?? input.HoTen,
       HoTen: input.HoTen ?? data.HoTenNguoiKhaiBao,
-      TuNgay: data.TuNgay ?? input.NgayDangKy,
-      DenNgay: data.DenNgay ?? input.NgayHetHan,
+      NgaySinh: normalizedNgaySinh,
+      TuNgay: normalizedTuNgay,
+      DenNgay: normalizedDenNgay,
       TinhTrangHoSo: data.TinhTrangHoSo ?? input.TrangThai,
-      NgayKhaiBao: data.NgayKhaiBao ?? input.NgayDangKy,
-      NgayDangKy: input.NgayDangKy ?? data.TuNgay,
-      NgayHetHan: input.NgayHetHan ?? data.DenNgay,
+      NgayKhaiBao: normalizedNgayKhaiBao,
+      NgayDangKy: normalizedNgayDangKy,
+      NgayHetHan: normalizedNgayHetHan,
       TrangThai: input.TrangThai ?? data.TinhTrangHoSo,
     };
   }

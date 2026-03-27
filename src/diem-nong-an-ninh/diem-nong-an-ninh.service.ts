@@ -12,17 +12,49 @@ export class DiemNongAnNinhService {
 
   private normalizePayload(data: Partial<DiemNongAnNinh>): Partial<DiemNongAnNinh> {
     const input = data as any;
+    const normalizeDateValue = (value: unknown): Date | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      if (value instanceof Date) return value;
+      if (typeof value === 'string') {
+        const trimmed = value.trim();
+        return trimmed ? new Date(trimmed) : null;
+      }
+      return value as Date;
+    };
+
+    const normalizeNumberValue = (value: unknown): number | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : null;
+    };
+
+    const normalizedNgayPhatHien = normalizeDateValue(data.NgayPhatHien ?? input.NgayPhatHien);
+
     return {
-      ...data,
+      MaDN: data.MaDN,
+      TenDiaDiem: input.TenDiaDiem ?? data.TenDiaDiem ?? data.TenDiem,
       TenDiem: data.TenDiem ?? input.TenDiaDiem,
       DiaDiem: data.DiaDiem ?? input.DiaChi,
+      ToaDo: data.ToaDo,
+      ToaDoLat: normalizeNumberValue(data.ToaDoLat ?? input.ToaDoLat),
+      ToaDoLng: normalizeNumberValue(data.ToaDoLng ?? input.ToaDoLng),
+      LoaiDiaDiem: data.LoaiDiaDiem,
+      LoaiViPham: input.LoaiViPham ?? data.LoaiViPham ?? data.LoaiRuiRo,
+      MucDo: input.MucDo ?? data.MucDo ?? data.MucDoNghiemTrong,
+      SoDoiTuong: normalizeNumberValue(data.SoDoiTuong),
+      NgayCapNhat: normalizeDateValue(data.NgayCapNhat ?? input.NgayCapNhat),
+      CanBoTheoDoi: data.CanBoTheoDoi,
+      SoDienThoai: data.SoDienThoai,
+      MoTa: data.MoTa,
       LoaiRuiRo: data.LoaiRuiRo ?? input.LoaiViPham,
       MucDoNghiemTrong: data.MucDoNghiemTrong ?? input.MucDo,
       TinhTrang: data.TinhTrang ?? input.TrangThai,
-      TenDiaDiem: input.TenDiaDiem ?? data.TenDiem,
-      TrangThai: input.TrangThai ?? data.TinhTrang,
-      MucDo: input.MucDo ?? data.MucDoNghiemTrong,
-      LoaiViPham: input.LoaiViPham ?? data.LoaiRuiRo,
+      TrangThai: input.TrangThai ?? data.TrangThai ?? data.TinhTrang,
+      NgayPhatHien: normalizedNgayPhatHien ?? new Date(),
+      BienPhapXuLy: data.BienPhapXuLy,
+      GhiChu: data.GhiChu,
     };
   }
 

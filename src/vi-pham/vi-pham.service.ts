@@ -12,14 +12,57 @@ export class ViPhamService {
 
   private normalizePayload(data: Partial<ViPham>): Partial<ViPham> {
     const input = data as any;
+    const normalizeTextValue = (value: unknown): string | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null) return null;
+      if (typeof value === 'string') {
+        const trimmed = value.trim();
+        return trimmed.length > 0 ? trimmed : null;
+      }
+      return String(value);
+    };
+
+    const normalizeDateValue = (value: unknown): Date | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      if (value instanceof Date) return value;
+      if (typeof value === 'string') {
+        const trimmed = value.trim();
+        return trimmed ? new Date(trimmed) : null;
+      }
+      return value as Date;
+    };
+
+    const tenViPham =
+      normalizeTextValue(data.TenViPham) ??
+      normalizeTextValue(input.NoiDungViPham) ??
+      normalizeTextValue(data.LoaiViPham) ??
+      'Chua cap nhat';
+
     return {
-      ...data,
-      TenViPham: data.TenViPham ?? input.NoiDungViPham,
-      NgayViPham: data.NgayViPham ?? input.NgayLap,
+      SoBienBan: data.SoBienBan,
+      TenViPham: tenViPham,
+      LoaiViPham: data.LoaiViPham,
+      DiaDiem: data.DiaDiem ?? input.DiaChiViPham ?? input.DiaChi,
+      NgayViPham: normalizeDateValue(data.NgayViPham ?? input.NgayLap),
+      NgayLap: normalizeDateValue(input.NgayLap ?? data.NgayViPham),
       NguoiViPham: data.NguoiViPham ?? input.DoiTuong,
-      DiaDiem: data.DiaDiem ?? input.DiaChiViPham,
-      NgayLap: input.NgayLap ?? data.NgayViPham,
       DoiTuong: input.DoiTuong ?? data.NguoiViPham,
+      NoiDungViPham: data.NoiDungViPham,
+      DiaChiViPham: data.DiaChiViPham ?? input.DiaChi,
+      CanCuPhapLy: data.CanCuPhapLy,
+      MucPhat: data.MucPhat,
+      BieuMauXuLy: data.BieuMauXuLy,
+      ThoiHanKhacPhuc: normalizeDateValue(data.ThoiHanKhacPhuc ?? input.ThoiHanKhacPhuc),
+      CanBoLap: data.CanBoLap,
+      NguoiKy: data.NguoiKy,
+      NgayXuLy: normalizeDateValue(data.NgayXuLy ?? input.NgayXuLy),
+      DaNopPhat: data.DaNopPhat,
+      NgayNopPhat: normalizeDateValue(data.NgayNopPhat ?? input.NgayNopPhat),
+      TaiPham: data.TaiPham,
+      TrangThai: data.TrangThai,
+      GhiChu: data.GhiChu,
+      NguoiLap: data.NguoiLap,
     };
   }
 
