@@ -11,12 +11,59 @@ export class XayDungTraiPhepService {
   ) {}
 
   private normalizePayload(payload: Partial<XayDungTraiPhep>): Partial<XayDungTraiPhep> {
+    const normalizeIntValue = (value: unknown): number | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      const parsed = Number.parseInt(String(value), 10);
+      return Number.isFinite(parsed) ? parsed : null;
+    };
+
+    const normalizeNumberValue = (value: unknown): number | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : null;
+    };
+
+    const normalizeDateValue = (value: unknown): Date | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      if (value instanceof Date) return value;
+      if (typeof value === 'string') {
+        const trimmed = value.trim();
+        return trimmed ? new Date(trimmed) : null;
+      }
+      return value as Date;
+    };
+
     return {
-      ...payload,
+      MaViPham: normalizeIntValue(payload.MaViPham),
+      MaVuViec: payload.MaVuViec,
+      DiaChi: payload.DiaChi,
+      MaThua: payload.MaThua,
+      SoTo: payload.SoTo,
+      ChuCongTrinh: payload.ChuCongTrinh,
+      CCCD: payload.CCCD,
+      SoDienThoai: payload.SoDienThoai,
+      LoaiViPham: payload.LoaiViPham,
+      MoTaViPham: payload.MoTaViPham,
       DiaDiem: payload.DiaDiem ?? payload.DiaChi ?? 'Chưa cập nhật',
       ChuSoHuu: payload.ChuSoHuu ?? payload.ChuCongTrinh,
-      DienTich: payload.DienTich ?? payload.DienTichViPham,
+      DienTich: normalizeNumberValue(payload.DienTich ?? payload.DienTichViPham),
+      DienTichViPham: normalizeNumberValue(payload.DienTichViPham),
+      NgayPhatHien: normalizeDateValue(payload.NgayPhatHien),
+      NguoiPhatHien: payload.NguoiPhatHien,
       TrangThai: payload.TrangThai ?? 'Đã phát hiện',
+      BienPhapXuLy: payload.BienPhapXuLy,
+      SoTien: normalizeNumberValue(payload.SoTien),
+      SoQuyetDinhXP: payload.SoQuyetDinhXP,
+      NgayQD: normalizeDateValue(payload.NgayQD),
+      ThoiHanThaoGo: normalizeDateValue(payload.ThoiHanThaoGo),
+      DaCuongChe: payload.DaCuongChe,
+      NgayCuongChe: normalizeDateValue(payload.NgayCuongChe),
+      KetQuaXuLy: payload.KetQuaXuLy,
+      MaCanBo: normalizeIntValue(payload.MaCanBo),
+      GhiChu: payload.GhiChu,
     };
   }
 

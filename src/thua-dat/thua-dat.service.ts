@@ -10,8 +10,20 @@ export class ThuaDatService {
     private repository: Repository<ThuaDat>,
   ) {}
 
-  async findAll(page: number = 1, limit: number = 10) {
+  private normalizePayload(data: Partial<ThuaDat>) {
+    const payload: Partial<ThuaDat> = {};
+    Object.entries(data || {}).forEach(([key, value]) => {
+      if (value !== undefined) {
+        (payload as any)[key] = value;
+      }
+    });
+    return payload;
+  }
+
+  async findAll(page: number = 1, limit: number = 10, loaiBanGhi?: string) {
+    const where = loaiBanGhi ? ({ LoaiBanGhi: loaiBanGhi } as any) : undefined;
     const [items, total] = await this.repository.findAndCount({
+      where,
       skip: (page - 1) * limit,
       take: limit,
       order: { MaThua: 'DESC' },
@@ -56,13 +68,13 @@ export class ThuaDatService {
   }
 
   async create(data: Partial<ThuaDat>) {
-    const item = this.repository.create(data);
+    const item = this.repository.create(this.normalizePayload(data));
     await this.repository.save(item);
     return { success: true, data: item, message: 'Tạo mới thành công' };
   }
 
   async update(id: string, data: Partial<ThuaDat>) {
-    await this.repository.update({ MaThua: id } as any, data);
+    await this.repository.update({ MaThua: id } as any, this.normalizePayload(data));
     const updated = await this.repository.findOne({ where: { MaThua: id } as any });
     return { success: true, data: updated, message: 'Cập nhật thành công' };
   }

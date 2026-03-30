@@ -9,8 +9,12 @@ export class ThuaDatController {
   constructor(private readonly service: ThuaDatService) {}
 
   @Get()
-  async findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
-    return this.service.findAll(page ? +page : 1, limit ? +limit : 10);
+  async findAll(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('loaiBanGhi') loaiBanGhi?: string,
+  ) {
+    return this.service.findAll(page ? +page : 1, limit ? +limit : 10, loaiBanGhi);
   }
 
   @Get('stats')

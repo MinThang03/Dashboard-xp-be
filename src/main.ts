@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import cookieParser from 'cookie-parser';
 import * as express from 'express';
+import { sanitizeEmptyValuesMiddleware } from './common/middlewares/sanitize-empty-values.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -35,6 +36,7 @@ async function bootstrap() {
   // Set request body size limit to 50MB
   app.use(express.json({ limit: '50mb' }));
   app.use(express.urlencoded({ limit: '50mb', extended: true }));
+  app.use(sanitizeEmptyValuesMiddleware);
 
   // API prefix
   app.setGlobalPrefix('api');

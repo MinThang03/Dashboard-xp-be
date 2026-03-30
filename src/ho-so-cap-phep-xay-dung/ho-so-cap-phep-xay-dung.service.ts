@@ -11,17 +11,66 @@ export class HoSoCapPhepXayDungService {
   ) {}
 
   private normalizePayload(payload: Partial<HoSoCapPhepXayDung>): Partial<HoSoCapPhepXayDung> {
+    const input = payload as any;
+    const normalizeIntValue = (value: unknown): number | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      const parsed = Number.parseInt(String(value), 10);
+      return Number.isFinite(parsed) ? parsed : null;
+    };
+
+    const normalizeNumberValue = (value: unknown): number | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : null;
+    };
+
+    const normalizeDateValue = (value: unknown): Date | null | undefined => {
+      if (value === undefined) return undefined;
+      if (value === null || value === '') return null;
+      if (value instanceof Date) return value;
+      if (typeof value === 'string') {
+        const trimmed = value.trim();
+        return trimmed ? new Date(trimmed) : null;
+      }
+      return value as Date;
+    };
+
     return {
-      ...payload,
+      MaHoSo: normalizeIntValue(payload.MaHoSo),
       TenCongTrinh:
         payload.TenCongTrinh ??
         payload.DiaChiCongTrinh ??
         payload.LoaiCongTrinh ??
         payload.ChuDauTu ??
         'Công trình',
+      LoaiCongTrinh: payload.LoaiCongTrinh,
+      LoaiGiayPhep: payload.LoaiGiayPhep,
+      ChuDauTu: payload.ChuDauTu,
+      CCCD: payload.CCCD,
+      SoDienThoai: payload.SoDienThoai,
+      DiaChi: payload.DiaChi,
+      DiaChiCongTrinh: payload.DiaChiCongTrinh,
       DiaDiem: payload.DiaDiem ?? payload.DiaChiCongTrinh ?? payload.DiaChi,
-      DienTich: payload.DienTich ?? payload.DienTichXayDung,
-      NgayNopHoSo: payload.NgayNopHoSo ?? payload.NgayNop,
+      MaThua: payload.MaThua,
+      SoTo: payload.SoTo,
+      DienTich: normalizeNumberValue(payload.DienTich ?? payload.DienTichXayDung),
+      DienTichXayDung: normalizeNumberValue(payload.DienTichXayDung),
+      DienTichSan: normalizeNumberValue(payload.DienTichSan),
+      SoTang: normalizeIntValue(payload.SoTang),
+      ChieuCao: normalizeNumberValue(payload.ChieuCao),
+      NgayNopHoSo: normalizeDateValue(payload.NgayNopHoSo ?? payload.NgayNop),
+      NgayNop: normalizeDateValue(payload.NgayNop),
+      NgayHenTra: normalizeDateValue(payload.NgayHenTra),
+      TrangThai: payload.TrangThai,
+      MaCanBo: normalizeIntValue(payload.MaCanBo),
+      CanBoTiepNhan: payload.CanBoTiepNhan,
+      CanBoThamDinh: payload.CanBoThamDinh,
+      SoGiayPhep: payload.SoGiayPhep,
+      NgayCapPhep: normalizeDateValue(payload.NgayCapPhep),
+      ThoiHanPhep: payload.ThoiHanPhep,
+      GhiChu: payload.GhiChu,
     };
   }
 

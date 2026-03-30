@@ -10,8 +10,32 @@ export class NganSachService {
     private repository: Repository<NganSach>,
   ) {}
 
-  async findAll(page: number = 1, limit: number = 10) {
+  private normalizePayload(data: Partial<NganSach>) {
+    const payload: Partial<NganSach> = {};
+    Object.entries(data || {}).forEach(([key, value]) => {
+      if (value !== undefined) {
+        (payload as any)[key] = value;
+      }
+    });
+
+    const tongDuToan = Number((payload as any).TongDuToan ?? 0);
+    const daGiaiNgan = Number((payload as any).DaGiaiNgan ?? 0);
+
+    if ((payload as any).ConLai === undefined && !Number.isNaN(tongDuToan) && !Number.isNaN(daGiaiNgan)) {
+      (payload as any).ConLai = tongDuToan - daGiaiNgan;
+    }
+
+    if (!(payload as any).NgayTao) {
+      (payload as any).NgayTao = new Date();
+    }
+
+    return payload;
+  }
+
+  async findAll(page: number = 1, limit: number = 10, loaiBanGhi?: string) {
+    const where = loaiBanGhi ? ({ LoaiBanGhi: loaiBanGhi } as any) : undefined;
     const [items, total] = await this.repository.findAndCount({
+      where,
       skip: (page - 1) * limit,
       take: limit,
       order: { MaNganSach: 'DESC' },
@@ -58,13 +82,13 @@ export class NganSachService {
   }
 
   async create(data: Partial<NganSach>) {
-    const item = this.repository.create(data);
+    const item = this.repository.create(this.normalizePayload(data));
     await this.repository.save(item);
     return { success: true, data: item, message: 'Tạo mới thành công' };
   }
 
   async update(id: number, data: Partial<NganSach>) {
-    await this.repository.update({ MaNganSach: id } as any, data);
+    await this.repository.update({ MaNganSach: id } as any, this.normalizePayload(data));
     const updated = await this.repository.findOne({ where: { MaNganSach: id } as any });
     return { success: true, data: updated, message: 'Cập nhật thành công' };
   }

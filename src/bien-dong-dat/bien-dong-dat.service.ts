@@ -10,8 +10,20 @@ export class BienDongDatService {
     private repository: Repository<BienDongDat>,
   ) {}
 
-  async findAll(page: number = 1, limit: number = 10) {
+  private normalizePayload(data: Partial<BienDongDat>) {
+    const payload: Partial<BienDongDat> = {};
+    Object.entries(data || {}).forEach(([key, value]) => {
+      if (value !== undefined) {
+        (payload as any)[key] = value;
+      }
+    });
+    return payload;
+  }
+
+  async findAll(page: number = 1, limit: number = 10, loaiBanGhi?: string) {
+    const where = loaiBanGhi ? ({ LoaiBanGhi: loaiBanGhi } as any) : undefined;
     const [items, total] = await this.repository.findAndCount({
+      where,
       skip: (page - 1) * limit,
       take: limit,
       order: { MaBienDong: 'DESC' },
@@ -51,13 +63,13 @@ export class BienDongDatService {
   }
 
   async create(data: Partial<BienDongDat>) {
-    const item = this.repository.create(data);
+    const item = this.repository.create(this.normalizePayload(data));
     await this.repository.save(item);
     return { success: true, data: item, message: 'Tạo mới thành công' };
   }
 
   async update(id: number, data: Partial<BienDongDat>) {
-    await this.repository.update({ MaBienDong: id } as any, data);
+    await this.repository.update({ MaBienDong: id } as any, this.normalizePayload(data));
     const updated = await this.repository.findOne({ where: { MaBienDong: id } as any });
     return { success: true, data: updated, message: 'Cập nhật thành công' };
   }
