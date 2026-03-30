@@ -19,11 +19,15 @@ import { LopHoc } from './src/lop-hoc/lop-hoc.entity';
 import { NganSach } from './src/ngan-sach/ngan-sach.entity';
 import { ThuaDat } from './src/thua-dat/thua-dat.entity';
 import { BienDongDat } from './src/bien-dong-dat/bien-dong-dat.entity';
+import { TramQuanTracMT } from './src/tram-quan-trac-m-t/tram-quan-trac-m-t.entity';
 import { RacThai } from './src/rac-thai/rac-thai.entity';
 import { BaoCaoONhiem } from './src/bao-cao-o-nhiem/bao-cao-onhiem.entity';
 import { DiTich } from './src/di-tich/di-tich.entity';
+import { HoSoDiTich } from './src/ho-so-di-tich/ho-so-di-tich.entity';
+import { CoSoKinhDoanhDuLich } from './src/co-so-kinh-doanh-du-lich/co-so-kinh-doanh-du-lich.entity';
 import { LangNghe } from './src/lang-nghe/lang-nghe.entity';
 import { LeHoi } from './src/le-hoi/le-hoi.entity';
+import { RuiRoQuyHoach } from './src/rui-ro-quy-hoach/rui-ro-quy-hoach.entity';
 import { ViPham } from './src/vi-pham/vi-pham.entity';
 import { DiemNongAnNinh } from './src/diem-nong-an-ninh/diem-nong-an-ninh.entity';
 import { TamTruTamVang } from './src/tam-tru-tam-vang/tam-tru-tam-vang.entity';
@@ -74,11 +78,15 @@ export default new DataSource({
     NganSach,
     ThuaDat,
     BienDongDat,
+    TramQuanTracMT,
     RacThai,
     BaoCaoONhiem,
     DiTich,
+    HoSoDiTich,
+    CoSoKinhDoanhDuLich,
     LangNghe,
     LeHoi,
+    RuiRoQuyHoach,
     ViPham,
     DiemNongAnNinh,
     TamTruTamVang,

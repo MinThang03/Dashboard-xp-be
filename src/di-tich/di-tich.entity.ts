@@ -20,11 +20,23 @@ export class DiTich {
   @Column({ name: 'CapXepHang', type: 'varchar', length: 50, nullable: true })
   CapXepHang?: string | null;
 
+  @Column({ name: 'NamXayDung', type: 'int', nullable: true })
+  NamXayDung?: number | null;
+
   @Column({ name: 'TinhTrang', type: 'varchar', length: 50, default: 'Tốt' })
   TinhTrang: string;
 
   @Column({ name: 'MoTa', type: 'text', nullable: true })
   MoTa?: string | null;
+
+  @Column({ name: 'LuotKhachThang', type: 'int', default: 0 })
+  LuotKhachThang: number;
+
+  @Column({ name: 'NgayCapNhat', type: 'date', nullable: true })
+  NgayCapNhat?: Date | null;
+
+  @Column({ name: 'KeHoachTuBo', type: 'text', nullable: true })
+  KeHoachTuBo?: string | null;
 
   @Column({ name: 'NgayTao', type: 'timestamp' })
   NgayTao: Date;

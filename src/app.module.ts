@@ -49,6 +49,7 @@ import { ThuaDatModule } from './thua-dat/thua-dat.module';
 import { BienDongDatModule } from './bien-dong-dat/bien-dong-dat.module';
 
 // Module 5: Môi trường
+import { TramQuanTracMTModule } from './tram-quan-trac-m-t/tram-quan-trac-m-t.module';
 import { RacThaiModule } from './rac-thai/rac-thai.module';
 import { BaoCaoONhiemModule } from './bao-cao-o-nhiem/bao-cao-onhiem.module';
 
@@ -56,6 +57,9 @@ import { BaoCaoONhiemModule } from './bao-cao-o-nhiem/bao-cao-onhiem.module';
 import { DiTichModule } from './di-tich/di-tich.module';
 import { LangNgheModule } from './lang-nghe/lang-nghe.module';
 import { LeHoiModule } from './le-hoi/le-hoi.module';
+import { HoSoDiTichModule } from './ho-so-di-tich/ho-so-di-tich.module';
+import { CoSoKinhDoanhDuLichModule } from './co-so-kinh-doanh-du-lich/co-so-kinh-doanh-du-lich.module';
+import { RuiRoQuyHoachModule } from './rui-ro-quy-hoach/rui-ro-quy-hoach.module';
 
 // Module 7: An ninh - Trật tự
 import { ViPhamModule } from './vi-pham/vi-pham.module';
@@ -113,12 +117,16 @@ import { DiemNongAnNinhModule } from './diem-nong-an-ninh/diem-nong-an-ninh.modu
     ThuaDatModule,
     BienDongDatModule,
     // Môi trường
+    TramQuanTracMTModule,
     RacThaiModule,
     BaoCaoONhiemModule,
     // Văn hóa - Du lịch
     DiTichModule,
+    HoSoDiTichModule,
+    CoSoKinhDoanhDuLichModule,
     LangNgheModule,
     LeHoiModule,
+    RuiRoQuyHoachModule,
     // An ninh - Trật tự
     ViPhamModule,
     DiemNongAnNinhModule,

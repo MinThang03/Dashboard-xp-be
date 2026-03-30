@@ -19,11 +19,15 @@ import { LopHoc } from '../lop-hoc/lop-hoc.entity';
 import { NganSach } from '../ngan-sach/ngan-sach.entity';
 import { ThuaDat } from '../thua-dat/thua-dat.entity';
 import { BienDongDat } from '../bien-dong-dat/bien-dong-dat.entity';
+import { TramQuanTracMT } from '../tram-quan-trac-m-t/tram-quan-trac-m-t.entity';
 import { RacThai } from '../rac-thai/rac-thai.entity';
 import { BaoCaoONhiem } from '../bao-cao-o-nhiem/bao-cao-onhiem.entity';
 import { DiTich } from '../di-tich/di-tich.entity';
+import { HoSoDiTich } from '../ho-so-di-tich/ho-so-di-tich.entity';
+import { CoSoKinhDoanhDuLich } from '../co-so-kinh-doanh-du-lich/co-so-kinh-doanh-du-lich.entity';
 import { LangNghe } from '../lang-nghe/lang-nghe.entity';
 import { LeHoi } from '../le-hoi/le-hoi.entity';
+import { RuiRoQuyHoach } from '../rui-ro-quy-hoach/rui-ro-quy-hoach.entity';
 import { ViPham } from '../vi-pham/vi-pham.entity';
 import { DiemNongAnNinh } from '../diem-nong-an-ninh/diem-nong-an-ninh.entity';
 import { TamTruTamVang } from '../tam-tru-tam-vang/tam-tru-tam-vang.entity';
@@ -73,11 +77,15 @@ export const typeOrmConfig = (
     NganSach,
     ThuaDat,
     BienDongDat,
+    TramQuanTracMT,
     RacThai,
     BaoCaoONhiem,
     DiTich,
+    HoSoDiTich,
+    CoSoKinhDoanhDuLich,
     LangNghe,
     LeHoi,
+    RuiRoQuyHoach,
     ViPham,
     DiemNongAnNinh,
     TamTruTamVang,
