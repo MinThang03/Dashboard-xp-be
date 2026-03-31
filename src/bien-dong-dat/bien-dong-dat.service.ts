@@ -2,13 +2,25 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BienDongDat } from './bien-dong-dat.entity';
+import { ThuaDat } from '../thua-dat/thua-dat.entity';
 
 @Injectable()
 export class BienDongDatService {
   constructor(
     @InjectRepository(BienDongDat)
     private repository: Repository<BienDongDat>,
+    @InjectRepository(ThuaDat)
+    private thuaDatRepository: Repository<ThuaDat>,
   ) {}
+
+  private normalizeMaThua(value?: string | null) {
+    const text = String(value ?? '').trim();
+    return text.length > 0 ? text : null;
+  }
+
+  private async ensureThuaDatExists(maThua: string) {
+    return this.thuaDatRepository.findOne({ where: { MaThua: maThua } as any });
+  }
 
   private normalizePayload(data: Partial<BienDongDat>) {
     const payload: Partial<BienDongDat> = {};
@@ -63,12 +75,33 @@ export class BienDongDatService {
   }
 
   async create(data: Partial<BienDongDat>) {
-    const item = this.repository.create(this.normalizePayload(data));
+    const maThua = this.normalizeMaThua(data.MaThua);
+    if (!maThua) {
+      return { success: false, message: 'MaThua không hợp lệ' };
+    }
+
+    const thuaDat = await this.ensureThuaDatExists(maThua);
+    if (!thuaDat) {
+      return { success: false, message: `Không tìm thấy thửa đất MaThua=${maThua}` };
+    }
+
+    const item = this.repository.create(this.normalizePayload({ ...data, MaThua: maThua }));
     await this.repository.save(item);
     return { success: true, data: item, message: 'Tạo mới thành công' };
   }
 
   async update(id: number, data: Partial<BienDongDat>) {
+    if (data.MaThua !== undefined) {
+      const maThua = this.normalizeMaThua(data.MaThua);
+      if (!maThua) {
+        return { success: false, message: 'MaThua không hợp lệ' };
+      }
+      const thuaDat = await this.ensureThuaDatExists(maThua);
+      if (!thuaDat) {
+        return { success: false, message: `Không tìm thấy thửa đất MaThua=${maThua}` };
+      }
+      data = { ...data, MaThua: maThua };
+    }
     await this.repository.update({ MaBienDong: id } as any, this.normalizePayload(data));
     const updated = await this.repository.findOne({ where: { MaBienDong: id } as any });
     return { success: true, data: updated, message: 'Cập nhật thành công' };

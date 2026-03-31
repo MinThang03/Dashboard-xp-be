@@ -2,13 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BaoCaoONhiem } from './bao-cao-onhiem.entity';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class BaoCaoONhiemService {
   constructor(
     @InjectRepository(BaoCaoONhiem)
     private repository: Repository<BaoCaoONhiem>,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
+
+  private async ensureNguoiDungExists(id: number) {
+    return this.usersRepository.findOne({ where: { id } as any });
+  }
 
   async findAll(page: number = 1, limit: number = 10) {
     const [items, total] = await this.repository.findAndCount({
@@ -49,12 +56,45 @@ export class BaoCaoONhiemService {
   }
 
   async create(data: Partial<BaoCaoONhiem>) {
+    if (data.NguoiBaoCao !== undefined) {
+      const raw = data.NguoiBaoCao;
+      if (raw === null || String(raw).trim() === '') {
+        data = { ...data, NguoiBaoCao: null };
+      } else {
+        const nguoiBaoCao = Number(raw);
+        if (!Number.isFinite(nguoiBaoCao)) {
+          return { success: false, message: 'NguoiBaoCao không hợp lệ' };
+        }
+        const nguoiDung = await this.ensureNguoiDungExists(nguoiBaoCao);
+        if (!nguoiDung) {
+          return { success: false, message: `Không tìm thấy người dùng MaNguoiDung=${nguoiBaoCao}` };
+        }
+        data = { ...data, NguoiBaoCao: nguoiBaoCao };
+      }
+    }
+
     const item = this.repository.create(data);
     await this.repository.save(item);
     return { success: true, data: item, message: 'Tạo mới thành công' };
   }
 
   async update(id: number, data: Partial<BaoCaoONhiem>) {
+    if (data.NguoiBaoCao !== undefined) {
+      const raw = data.NguoiBaoCao;
+      if (raw === null || String(raw).trim() === '') {
+        data = { ...data, NguoiBaoCao: null };
+      } else {
+        const nguoiBaoCao = Number(raw);
+        if (!Number.isFinite(nguoiBaoCao)) {
+          return { success: false, message: 'NguoiBaoCao không hợp lệ' };
+        }
+        const nguoiDung = await this.ensureNguoiDungExists(nguoiBaoCao);
+        if (!nguoiDung) {
+          return { success: false, message: `Không tìm thấy người dùng MaNguoiDung=${nguoiBaoCao}` };
+        }
+        data = { ...data, NguoiBaoCao: nguoiBaoCao };
+      }
+    }
     await this.repository.update({ MaBaoCao: id } as any, data);
     const updated = await this.repository.findOne({ where: { MaBaoCao: id } as any });
     return { success: true, data: updated, message: 'Cập nhật thành công' };
