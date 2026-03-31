@@ -157,11 +157,31 @@ export class HoSoTTHCService {
       where: { TrangThai: 'Hoàn thành' },
     });
 
+    const choBoSung = await this.hoSoRepository.count({
+      where: { TrangThai: 'Chờ bổ sung' },
+    });
+
+    const tuChoi = await this.hoSoRepository.count({
+      where: { TrangThai: 'Từ chối' },
+    });
+
+    const quaHan = await this.hoSoRepository
+      .createQueryBuilder('hoSo')
+      .where('hoSo."NgayHenTra" IS NOT NULL')
+      .andWhere('hoSo."NgayHenTra" < CURRENT_DATE')
+      .andWhere('hoSo."TrangThai" NOT IN (:...doneStatuses)', {
+        doneStatuses: ['Hoàn thành', 'Từ chối'],
+      })
+      .getCount();
+
     return {
       total,
       daTiepNhan,
       dangXuLy,
       hoanThanh,
+      choBoSung,
+      tuChoi,
+      quaHan,
     };
   }
 

@@ -11,20 +11,44 @@ export class HoTich {
   @Column({ type: 'varchar', length: 150 })
   ten_chu_ho: string;
 
+  @Column({ type: 'varchar', length: 150, nullable: true })
+  ho_ten_ca_nhan?: string;
+
   @Column({ type: 'date', nullable: true })
   ngay_sinh_chu_ho?: Date;
+
+  @Column({ type: 'date', nullable: true })
+  ngay_sinh?: Date;
 
   @Column({ type: 'varchar', length: 10, nullable: true })
   gioi_tinh_chu_ho?: string;
 
+  @Column({ type: 'varchar', length: 10, nullable: true })
+  gioi_tinh?: string;
+
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  so_cccd?: string;
+
   @Column({ type: 'varchar', length: 255 })
   dia_chi_ho_tich: string;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  dia_chi_thuong_tru?: string;
+
+  @Column({ type: 'varchar', length: 80, nullable: true })
+  loai_su_kien_ho_tich?: string;
 
   @Column({ type: 'int', default: 0 })
   so_thanh_vien_ho_tich: number;
 
   @Column({ type: 'date', nullable: true })
   ngay_lap_ho_tich?: Date;
+
+  @Column({ type: 'date', nullable: true })
+  ngay_dang_ky?: Date;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  noi_dang_ky?: string;
 
   @Column({ type: 'text', nullable: true })
   ghi_chu?: string;

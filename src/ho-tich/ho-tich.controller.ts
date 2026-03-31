@@ -9,14 +9,16 @@ export class HoTichController {
   constructor(private readonly hoTichService: HoTichService) {}
 
   @Get()
-  async findAll(@Query('page') page?: number, @Query('limit') limit?: number) {
-    const result = await this.hoTichService.findAll({ page, limit });
+  async findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
+    const parsedPage = page ? Number(page) : 1;
+    const parsedLimit = limit ? Number(limit) : 10;
+    const result = await this.hoTichService.findAll({ page: parsedPage, limit: parsedLimit });
     return {
       success: true,
       data: result.data,
       total: result.total,
-      page: page || 1,
-      limit: limit || 10,
+      page: parsedPage,
+      limit: parsedLimit,
     };
   }
 
@@ -30,8 +32,8 @@ export class HoTichController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
-    const data = await this.hoTichService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const data = await this.hoTichService.findOne(Number(id));
     return {
       success: true,
       data,
@@ -49,8 +51,8 @@ export class HoTichController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() data: Partial<HoTich>) {
-    const result = await this.hoTichService.update(id, data);
+  async update(@Param('id') id: string, @Body() data: Partial<HoTich>) {
+    const result = await this.hoTichService.update(Number(id), data);
     return {
       success: true,
       data: result,
@@ -59,8 +61,8 @@ export class HoTichController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
-    await this.hoTichService.remove(id);
+  async remove(@Param('id') id: string) {
+    await this.hoTichService.remove(Number(id));
     return {
       success: true,
       message: 'Xóa hồ sơ hộ tịch thành công',

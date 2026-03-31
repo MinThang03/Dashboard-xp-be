@@ -75,6 +75,12 @@ export class HoKhauController {
     return { success: true, data: result };
   }
 
+  @Put('thanh-vien/:id')
+  async updateThanhVien(@Param('id') id: string, @Body() data: any) {
+    const result = await this.hoKhauService.updateThanhVien(parseInt(id, 10), data);
+    return { success: true, data: result };
+  }
+
   @Delete('thanh-vien/:id')
   async deleteThanhVien(@Param('id') id: string) {
     await this.hoKhauService.deleteThanhVien(parseInt(id));
