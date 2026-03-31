@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { BaoCao } from './bao-cao.entity';
@@ -28,15 +28,15 @@ export class BaoCaoService {
       const thangNam = this.normalizeString(data.ThangNam, 7);
       const nguoiLapText = this.normalizeString(data.NguoiLapText, 150);
 
-      if (data.TieuDe && !tieuDe) {
+      if (data.TieuDe !== undefined && !tieuDe) {
         throw new BadRequestException('Tiêu đề báo cáo không được để trống hoặc vượt quá 200 ký tự');
       }
 
-      if (data.ThangNam && !thangNam) {
+      if (data.ThangNam !== undefined && !thangNam) {
         throw new BadRequestException('Tháng/Năm báo cáo tối đa 7 ký tự (ví dụ: 2026-03 hoặc Q1/2026)');
       }
 
-      if (data.NguoiLapText && !nguoiLapText) {
+      if (data.NguoiLapText !== undefined && !nguoiLapText) {
         throw new BadRequestException('Người lập tối đa 150 ký tự');
       }
 
@@ -55,8 +55,8 @@ export class BaoCaoService {
   ) {}
 
   async findAll(params?: { page?: number; limit?: number; search?: string }) {
-    const page = params?.page || 1;
-    const limit = params?.limit || 10;
+    const page = Number.isFinite(params?.page as number) && (params?.page as number) > 0 ? Number(params?.page) : 1;
+    const limit = Number.isFinite(params?.limit as number) && (params?.limit as number) > 0 ? Number(params?.limit) : 10;
     const skip = (page - 1) * limit;
 
     const where = params?.search
@@ -77,6 +77,19 @@ export class BaoCaoService {
     return this.baoCaoRepository.findOne({ where: { MaBaoCao: id } });
   }
 
+  async findOneById(id: number) {
+    if (!Number.isFinite(id) || id <= 0) {
+      throw new BadRequestException('Mã báo cáo không hợp lệ');
+    }
+
+    const found = await this.findOne(id);
+    if (!found) {
+      throw new NotFoundException('Không tìm thấy báo cáo');
+    }
+
+    return found;
+  }
+
   async create(data: Partial<BaoCao>) {
     const sanitized = this.sanitizePayload(data);
     const entity = this.baoCaoRepository.create(sanitized);
@@ -84,12 +97,25 @@ export class BaoCaoService {
   }
 
   async update(id: number, data: Partial<BaoCao>) {
+    if (!Number.isFinite(id) || id <= 0) {
+      throw new BadRequestException('Mã báo cáo không hợp lệ');
+    }
+
+    await this.findOneById(id);
+
     const sanitized = this.sanitizePayload(data);
-    await this.baoCaoRepository.update(id, sanitized);
-    return this.findOne(id);
+    await this.baoCaoRepository.update({ MaBaoCao: id } as any, sanitized);
+    return this.findOneById(id);
   }
 
   async remove(id: number) {
-    await this.baoCaoRepository.delete(id);
+    if (!Number.isFinite(id) || id <= 0) {
+      throw new BadRequestException('Mã báo cáo không hợp lệ');
+    }
+
+    const result = await this.baoCaoRepository.delete({ MaBaoCao: id } as any);
+    if (!result.affected) {
+      throw new NotFoundException('Không tìm thấy báo cáo để xóa');
+    }
   }
 }

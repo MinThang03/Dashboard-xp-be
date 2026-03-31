@@ -8,11 +8,13 @@ export class BaoCaoController {
 
   @Get()
   async findAll(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('search') search?: string,
   ) {
-    const result = await this.baoCaoService.findAll({ page, limit, search });
+    const parsedPage = page ? Number(page) : 1;
+    const parsedLimit = limit ? Number(limit) : 10;
+    const result = await this.baoCaoService.findAll({ page: parsedPage, limit: parsedLimit, search });
     return {
       success: true,
       data: result.data,
@@ -23,8 +25,8 @@ export class BaoCaoController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
-    const data = await this.baoCaoService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const data = await this.baoCaoService.findOneById(Number(id));
     return { success: true, data };
   }
 
@@ -35,14 +37,14 @@ export class BaoCaoController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() data: Partial<BaoCao>) {
-    const result = await this.baoCaoService.update(id, data);
+  async update(@Param('id') id: string, @Body() data: Partial<BaoCao>) {
+    const result = await this.baoCaoService.update(Number(id), data);
     return { success: true, data: result, message: 'Cập nhật báo cáo thành công' };
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
-    await this.baoCaoService.remove(id);
+  async remove(@Param('id') id: string) {
+    await this.baoCaoService.remove(Number(id));
     return { success: true, message: 'Xóa báo cáo thành công' };
   }
 }
