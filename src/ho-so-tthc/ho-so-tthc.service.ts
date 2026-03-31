@@ -167,9 +167,9 @@ export class HoSoTTHCService {
 
     const quaHan = await this.hoSoRepository
       .createQueryBuilder('hoSo')
-      .where('hoSo."NgayHenTra" IS NOT NULL')
-      .andWhere('hoSo."NgayHenTra" < CURRENT_DATE')
-      .andWhere('hoSo."TrangThai" NOT IN (:...doneStatuses)', {
+      .where('"hoSo"."NgayHenTra" IS NOT NULL')
+      .andWhere('"hoSo"."NgayHenTra" < CURRENT_DATE')
+      .andWhere('"hoSo"."TrangThai" NOT IN (:...doneStatuses)', {
         doneStatuses: ['Hoàn thành', 'Từ chối'],
       })
       .getCount();
