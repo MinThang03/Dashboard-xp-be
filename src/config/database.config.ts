@@ -11,6 +11,7 @@ import { HoSoTTHC } from '../ho-so-tthc/ho-so-tthc.entity';
 import { LoaiThuTuc } from '../ho-so-tthc/loai-thu-tuc.entity';
 import { BaoCao } from '../bao-cao/bao-cao.entity';
 import { TramYTe } from '../tram-y-te/tram-yte.entity';
+import { NhanVienYTe } from '../nhan-vien-y-te/nhan-vien-y-te.entity';
 import { DichBenh } from '../dich-benh/dich-benh.entity';
 import { CoSoGiaoDuc } from '../co-so-giao-duc/co-so-giao-duc.entity';
 import { TiemChung } from '../tiem-chung/tiem-chung.entity';
@@ -69,6 +70,7 @@ export const typeOrmConfig = (
     LoaiThuTuc,
     BaoCao,
     TramYTe,
+    NhanVienYTe,
     DichBenh,
     CoSoGiaoDuc,
     TiemChung,

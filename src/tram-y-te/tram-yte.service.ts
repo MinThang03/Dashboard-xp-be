@@ -2,12 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TramYTe } from './tram-yte.entity';
+import { NhanVienYTe } from '../nhan-vien-y-te/nhan-vien-y-te.entity';
 
 @Injectable()
 export class TramYTeService {
   constructor(
     @InjectRepository(TramYTe)
     private repository: Repository<TramYTe>,
+    @InjectRepository(NhanVienYTe)
+    private nhanVienRepository: Repository<NhanVienYTe>,
   ) {}
 
   async findAll(page: number = 1, limit: number = 10) {
@@ -72,6 +75,7 @@ export class TramYTeService {
   }
 
   async delete(id: number) {
+    await this.nhanVienRepository.delete({ MaTram: id } as any);
     await this.repository.delete({ MaTram: id } as any);
     return { success: true, message: 'Xóa thành công' };
   }

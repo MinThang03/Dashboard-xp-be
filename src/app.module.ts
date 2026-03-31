@@ -19,6 +19,7 @@ import { BaoCaoModule } from './bao-cao/bao-cao.module';
 
 // Module 2: Y tế - Giáo dục
 import { TramYTeModule } from './tram-y-te/tram-yte.module';
+import { NhanVienYTeModule } from './nhan-vien-y-te/nhan-vien-y-te.module';
 import { DichBenhModule } from './dich-benh/dich-benh.module';
 import { CoSoGiaoDucModule } from './co-so-giao-duc/co-so-giao-duc.module';
 import { TiemChungModule } from './tiem-chung/tiem-chung.module';
@@ -89,6 +90,7 @@ import { DiemNongAnNinhModule } from './diem-nong-an-ninh/diem-nong-an-ninh.modu
     BaoCaoModule,
     // Y tế - Giáo dục
     TramYTeModule,
+    NhanVienYTeModule,
     DichBenhModule,
     CoSoGiaoDucModule,
     TiemChungModule,
