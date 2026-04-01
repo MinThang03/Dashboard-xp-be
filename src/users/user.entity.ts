@@ -43,6 +43,21 @@ export class User {
   @Column({ name: 'PhongBan', length: 150, nullable: true })
   department: string;
 
+  @Column({ name: 'SoCCCD', length: 30, nullable: true })
+  citizenId: string;
+
+  @Column({ name: 'NgaySinh', type: 'date', nullable: true })
+  birthDate: Date;
+
+  @Column({ name: 'NgayBatDauLamViec', type: 'date', nullable: true })
+  startDate: Date;
+
+  @Column({ name: 'DiaChiThuongTru', length: 255, nullable: true })
+  address: string;
+
+  @Column({ name: 'ChucVu', length: 100, nullable: true })
+  title: string;
+
   @Column({ name: 'MaVaiTro', type: 'int' })
   roleId: number;
 

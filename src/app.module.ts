@@ -70,6 +70,8 @@ import { DonViHanhChinhModule } from './don-vi-hanh-chinh/don-vi-hanh-chinh.modu
 import { QuanHuyenModule } from './quan-huyen/quan-huyen.module';
 import { XaPhuongModule } from './xa-phuong/xa-phuong.module';
 import { SystemSettingsModule } from './system-settings/system-settings.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -144,6 +146,8 @@ import { SystemSettingsModule } from './system-settings/system-settings.module';
     QuanHuyenModule,
     XaPhuongModule,
     SystemSettingsModule,
+    NotificationsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

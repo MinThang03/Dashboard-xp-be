@@ -73,6 +73,23 @@ export class UsersService {
     });
   }
 
+  private normalizePhone(value: unknown): string | null {
+    if (value === undefined || value === null) {
+      return null;
+    }
+
+    const phone = String(value).trim();
+    if (!phone) {
+      return null;
+    }
+
+    if (phone.length < 10) {
+      throw new BadRequestException('Số điện thoại phải có ít nhất 10 ký tự');
+    }
+
+    return phone;
+  }
+
   async create(userData: Partial<User>): Promise<User> {
     const user = this.userRepository.create(userData);
     return this.userRepository.save(user);
@@ -117,11 +134,13 @@ export class UsersService {
     const rawPassword = String(payload.password || '123456');
     const hashedPassword = await bcrypt.hash(rawPassword, 10);
 
+    const phone = payload.phone !== undefined ? this.normalizePhone(payload.phone) : null;
+
     return this.create({
       username,
       fullName,
       email: payload.email ?? null,
-      phone: payload.phone ?? null,
+      phone,
       department: payload.department ?? null,
       roleId: payload.roleId ?? 4,
       isActive: payload.isActive ?? true,
@@ -174,7 +193,7 @@ export class UsersService {
     }
 
     if (payload.phone !== undefined) {
-      user.phone = payload.phone ? String(payload.phone) : null;
+      user.phone = this.normalizePhone(payload.phone);
     }
 
     if (payload.department !== undefined) {
@@ -187,6 +206,80 @@ export class UsersService {
 
     if (payload.isActive !== undefined) {
       user.isActive = Boolean(payload.isActive);
+    }
+
+    await this.userRepository.save(user);
+    return this.findById(id);
+  }
+
+  async updateProfile(id: number, payload: Partial<User>) {
+    const user = await this.findById(id);
+    if (!user) {
+      throw new NotFoundException('Không tìm thấy người dùng');
+    }
+
+    const parseDateValue = (value: unknown, fieldLabel: string) => {
+      if (!value) {
+        return null;
+      }
+
+      const parsed = new Date(value as any);
+      if (Number.isNaN(parsed.getTime())) {
+        throw new BadRequestException(`${fieldLabel} không hợp lệ`);
+      }
+
+      return parsed;
+    };
+
+    if (payload.fullName !== undefined) {
+      const fullName = String(payload.fullName || '').trim();
+      if (!fullName) {
+        throw new BadRequestException('Họ và tên không được để trống');
+      }
+      user.fullName = fullName;
+    }
+
+    if (payload.email !== undefined) {
+      const email = payload.email ? String(payload.email).trim() : null;
+      if (email) {
+        const existingEmail = await this.findByEmailAny(email);
+        if (existingEmail && existingEmail.id !== id) {
+          throw new ConflictException('Email đã được đăng ký');
+        }
+      }
+      user.email = email;
+    }
+
+    if (payload.phone !== undefined) {
+      user.phone = this.normalizePhone(payload.phone);
+    }
+
+    if (payload.department !== undefined) {
+      user.department = payload.department ? String(payload.department) : null;
+    }
+
+    if (payload.avatar !== undefined) {
+      user.avatar = payload.avatar ? String(payload.avatar) : null;
+    }
+
+    if (payload.citizenId !== undefined) {
+      user.citizenId = payload.citizenId ? String(payload.citizenId) : null;
+    }
+
+    if (payload.birthDate !== undefined) {
+      user.birthDate = parseDateValue(payload.birthDate, 'Ngày sinh');
+    }
+
+    if (payload.startDate !== undefined) {
+      user.startDate = parseDateValue(payload.startDate, 'Ngày bắt đầu làm việc');
+    }
+
+    if (payload.address !== undefined) {
+      user.address = payload.address ? String(payload.address) : null;
+    }
+
+    if (payload.title !== undefined) {
+      user.title = payload.title ? String(payload.title) : null;
     }
 
     await this.userRepository.save(user);

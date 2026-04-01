@@ -53,6 +53,8 @@ import { DonViHanhChinh } from '../don-vi-hanh-chinh/don-vi-hanh-chinh.entity';
 import { QuanHuyen } from '../quan-huyen/quan-huyen.entity';
 import { XaPhuong } from '../xa-phuong/xa-phuong.entity';
 import { SystemSettings } from '../system-settings/system-settings.entity';
+import { UserNotification } from '../notifications/notification.entity';
+import { UserMessage } from '../messages/message.entity';
 
 export const typeOrmConfig = (
   configService: ConfigService,
@@ -117,6 +119,8 @@ export const typeOrmConfig = (
     QuanHuyen,
     XaPhuong,
     SystemSettings,
+    UserNotification,
+    UserMessage,
   ],
   synchronize: false,
   ssl: {

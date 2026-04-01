@@ -52,6 +52,8 @@ import { DonViHanhChinh } from './src/don-vi-hanh-chinh/don-vi-hanh-chinh.entity
 import { QuanHuyen } from './src/quan-huyen/quan-huyen.entity';
 import { XaPhuong } from './src/xa-phuong/xa-phuong.entity';
 import { SystemSettings } from './src/system-settings/system-settings.entity';
+import { UserNotification } from './src/notifications/notification.entity';
+import { UserMessage } from './src/messages/message.entity';
 
 // Load environment variables
 config();
@@ -116,6 +118,8 @@ export default new DataSource({
     QuanHuyen,
     XaPhuong,
     SystemSettings,
+    UserNotification,
+    UserMessage,
   ],
   migrations: ['./migrations/*.ts'],
   ssl: {
