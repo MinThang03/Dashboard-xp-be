@@ -48,6 +48,11 @@ import { HoNgheo } from '../ho-ngheo/ho-ngheo.entity';
 import { BaoTroXaHoi } from '../bao-tro-xa-hoi/bao-tro-xa-hoi.entity';
 import { NguoiCoCong } from '../nguoi-co-cong/nguoi-co-cong.entity';
 import { ViecLam } from '../viec-lam/viec-lam.entity';
+import { VaiTro } from '../vai-tro/vai-tro.entity';
+import { DonViHanhChinh } from '../don-vi-hanh-chinh/don-vi-hanh-chinh.entity';
+import { QuanHuyen } from '../quan-huyen/quan-huyen.entity';
+import { XaPhuong } from '../xa-phuong/xa-phuong.entity';
+import { SystemSettings } from '../system-settings/system-settings.entity';
 
 export const typeOrmConfig = (
   configService: ConfigService,
@@ -107,6 +112,11 @@ export const typeOrmConfig = (
     BaoTroXaHoi,
     NguoiCoCong,
     ViecLam,
+    VaiTro,
+    DonViHanhChinh,
+    QuanHuyen,
+    XaPhuong,
+    SystemSettings,
   ],
   synchronize: false,
   ssl: {

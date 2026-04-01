@@ -47,6 +47,11 @@ import { HoNgheo } from './src/ho-ngheo/ho-ngheo.entity';
 import { BaoTroXaHoi } from './src/bao-tro-xa-hoi/bao-tro-xa-hoi.entity';
 import { NguoiCoCong } from './src/nguoi-co-cong/nguoi-co-cong.entity';
 import { ViecLam } from './src/viec-lam/viec-lam.entity';
+import { VaiTro } from './src/vai-tro/vai-tro.entity';
+import { DonViHanhChinh } from './src/don-vi-hanh-chinh/don-vi-hanh-chinh.entity';
+import { QuanHuyen } from './src/quan-huyen/quan-huyen.entity';
+import { XaPhuong } from './src/xa-phuong/xa-phuong.entity';
+import { SystemSettings } from './src/system-settings/system-settings.entity';
 
 // Load environment variables
 config();
@@ -106,6 +111,11 @@ export default new DataSource({
     BaoTroXaHoi,
     NguoiCoCong,
     ViecLam,
+    VaiTro,
+    DonViHanhChinh,
+    QuanHuyen,
+    XaPhuong,
+    SystemSettings,
   ],
   migrations: ['./migrations/*.ts'],
   ssl: {

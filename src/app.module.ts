@@ -65,6 +65,11 @@ import { RuiRoQuyHoachModule } from './rui-ro-quy-hoach/rui-ro-quy-hoach.module'
 // Module 7: An ninh - Trật tự
 import { ViPhamModule } from './vi-pham/vi-pham.module';
 import { DiemNongAnNinhModule } from './diem-nong-an-ninh/diem-nong-an-ninh.module';
+import { VaiTroModule } from './vai-tro/vai-tro.module';
+import { DonViHanhChinhModule } from './don-vi-hanh-chinh/don-vi-hanh-chinh.module';
+import { QuanHuyenModule } from './quan-huyen/quan-huyen.module';
+import { XaPhuongModule } from './xa-phuong/xa-phuong.module';
+import { SystemSettingsModule } from './system-settings/system-settings.module';
 
 @Module({
   imports: [
@@ -134,6 +139,11 @@ import { DiemNongAnNinhModule } from './diem-nong-an-ninh/diem-nong-an-ninh.modu
     DiemNongAnNinhModule,
     PhanAnhModule,
     AnNinhTratTuModule,
+    VaiTroModule,
+    DonViHanhChinhModule,
+    QuanHuyenModule,
+    XaPhuongModule,
+    SystemSettingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

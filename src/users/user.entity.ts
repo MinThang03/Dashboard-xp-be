@@ -40,6 +40,9 @@ export class User {
   @Column({ name: 'AnhDaiDien', length: 500, nullable: true })
   avatar: string;
 
+  @Column({ name: 'PhongBan', length: 150, nullable: true })
+  department: string;
+
   @Column({ name: 'MaVaiTro', type: 'int' })
   roleId: number;
 
